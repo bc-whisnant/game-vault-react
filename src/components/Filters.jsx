@@ -1,10 +1,10 @@
 import '../styles/Filters.css'
 
 
-function Filters({ buttons }) {
+function Filters({ buttons, onSetActive }) {
     return (
         <div className="filters">
-            { buttons.map(button =>  <button key={button.id} className="filter-btn">{ button.text }</button>)}
+            { buttons.map(button =>  <button onClick={() => onSetActive(button.id, button.text)} key={button.id} className={`filter-btn ${button.isActive && 'active'}` }>{ button.text }</button>)}
         </div>
     )
 }

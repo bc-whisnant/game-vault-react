@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import './App.css'
 import Heading from './components/Heading'
 import Search from './components/Search'
@@ -7,7 +8,7 @@ import CardsContainer from './components/CardsContainer'
 
 function App() {
 
-  const buttons = [
+  const [buttons, setActiveButton] = useState([
     {
       id: 0,
       text: 'All Games',
@@ -38,7 +39,9 @@ function App() {
       text: 'Indie',
       isActive: false
     }
-  ]
+  ])
+
+
 
   const games = [
     {
@@ -955,9 +958,14 @@ function App() {
             }
         ]
     },
-]
+  ]
 
-console.log('games here', games)
+  const setActive = (id) => {
+    setActiveButton(buttons.map(button => ({
+      ...button,
+      isActive: button.id === id
+    })))
+  }
 
 
   return (
@@ -965,7 +973,7 @@ console.log('games here', games)
       <Heading />
       <div className="search-container">
         <Search />
-        <Filters buttons={buttons} />
+        <Filters onSetActive={setActive} buttons={buttons} />
       </div>
       <CardsContainer games={games} />
     </main>
